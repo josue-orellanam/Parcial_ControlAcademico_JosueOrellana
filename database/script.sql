@@ -48,3 +48,23 @@ INSERT INTO Inscripcion (id_alumno, id_curso, fecha_inscripcion) VALUES
 (1, 2, '2026-03-02'), -- Josue en Bases de Datos
 (2, 1, '2026-03-01'), -- Maria en Software
 (3, 3, '2026-03-03'); -- Carlos en Matematica
+
+-- PARTE III: CONSULTAS SQL
+
+-- 1. Mostrar todos los alumnos activos
+SELECT * FROM Alumno WHERE activo = TRUE;
+
+-- 2. Mostrar los cursos con más de 3 créditos
+SELECT * FROM Curso WHERE creditos > 3;
+
+-- 3. Mostrar los alumnos inscritos con el nombre del curso (JOIN)
+SELECT A.nombre, A.apellido, C.nombre AS curso
+FROM Alumno A
+INNER JOIN Inscripcion I ON A.id_alumno = I.id_alumno
+INNER JOIN Curso C ON I.id_curso = C.id_curso;
+
+-- 4. Mostrar cantidad de alumnos inscritos por curso (GROUP BY)
+SELECT C.nombre, COUNT(I.id_alumno) AS total_inscritos
+FROM Curso C
+LEFT JOIN Inscripcion I ON C.id_curso = I.id_curso
+GROUP BY C.nombre;
